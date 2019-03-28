@@ -10,12 +10,16 @@ import javax.persistence.Id;
 @Entity
 @NoArgsConstructor
 @Data
-public class Publication {
+public class Link {
 
     @Id
     @GeneratedValue
     Long id;
-    String text;
+    String title;
+    String category;
+    String author;
+    String url;
+
 
 
 

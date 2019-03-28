@@ -14,6 +14,8 @@ public class book {
     @GeneratedValue
     private Long id;
     private String title;
-    private String url;
+    private String category;
+    private String author;
+    private String place;
 // comments
 }
