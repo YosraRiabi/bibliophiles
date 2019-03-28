@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class book {
+public class book extends Auditable{
     @Id
     @GeneratedValue
     private Long id;
