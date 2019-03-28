@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 @Data
 @NoArgsConstructor
-public class Link {
+public class book {
     @Id
     @GeneratedValue
     private Long id;
