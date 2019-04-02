@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class book extends Auditable{
+public class Book extends Auditable{
     @Id
     @GeneratedValue
     private Long id;
@@ -21,7 +21,7 @@ public class book extends Auditable{
     private String author;
     private String place;
 
-// comments
+    // comments
     @OneToMany(mappedBy = "book")
     private List<Comment> comments = new ArrayList<>();
 }

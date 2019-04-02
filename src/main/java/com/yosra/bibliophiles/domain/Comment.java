@@ -6,7 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.awt.print.Book;
+import com.yosra.bibliophiles.domain.Book;
+
 
 @Entity
 @Data
