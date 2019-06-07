@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layouts/main_layout :: head(title = ' BIBLIOPHILES TUNISIENS')}">
+</head>
+<body>
+
+<nav th:replace="~{layouts/main_layout :: navigation}"></nav>
+<div th:replace="~{layouts/main_layout :: jumbotron}"></div>
+
+
+<div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h4>Publier un livre</h4>
+                <br/>
+                <form id="frmAddLink" method="POST" th:action="@{/link/submit}" th:object="${link}">
+                    <div class="form-group">
+                        <label for="title">Titre</label>
+                        <input type="text"
+                                class="form-control"
+                                id="title"
+                                placeholder="Entrer le titre"
+                                required="required"
+                                th:field="*{title}">
+                        <small th:errors="*{title}" style="color:red;"></small>
+                    </div>
+					 <div class="form-group">
+                        <label for="author">Auteur</label>
+                        <input type="text"
+                                class="form-control"
+                                id="author"
+                                placeholder="Entrer l'auteur"
+                                required="required"
+                                th:field="*{author}">
+                        <small th:errors="*{author}" style="color:red;"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="category"> Catégorie</label>
+                        <select id="category" th:field="*{category}" class="form-control" >
+                            <option th:value="${link.category} == 'AMC'">Art musique et cinéma</option>
+                            <option th:value="${link.category} =='AE'">Auto-edition</option>
+                            <option th:value="${link.category} =='BD'">Bandes dessinées</option>
+                            <option th:value="${link.category} =='C'" >Cuisine</option>
+                            <option th:value="${link.category} =='D'" >Développement personnel</option>
+                            <option th:value="${link.category} =='DL'">Dictionnaires et langues</option>
+                            <option th:value="${link.category} =='DE'">Droit et économie</option>
+                            <option th:value="${link.category} =='ED'">Essais et documents</option>
+                            <option th:value="${link.category} =='GP'">Guides pratiques</option>
+                            <option th:value="${link.category} =='H'">Histoire</option>
+                            <option th:value="${link.category} =='HU'">Humour</option>
+                            <option th:value="${link.category} =='II'">Informatique et internet</option>
+                            <option th:value="${link.category} =='J'">Jeunesse</option>
+                            <option th:value="${link.category} =='L'">Littérature</option>
+                            <option th:value="${link.category} =='PST'">Policier, suspense, thrillers</option>
+                            <option th:value="${link.category} =='RS'">Religion et spiritualité</option>
+                            <option th:value="${link.category} =='SS'">Sciences sociales</option>
+                            <option th:value="${link.category} =='STM'">Sciences, techniques et médecine</option>
+                            <option th:value="${link.category} =='S'">Scolaire</option>
+                            <option th:value="${link.category} =='SFF'">SF, Fantasy</option>
+                            <option th:value="${link.category} =='SLV'">Sport loisirs et vie pratique</option>
+                            <option th:value="${link.category} =='T'">Théâtre</option>
+                            <option th:value="${link.category} =='TV'">Tourisme et voyages</option>
+                        </select>
+                        <small th:errors="*{category}" style="color:red;"></small>
+
+                        <label for="url">Lien</label>
+                        <input type="url" class="form-control" id="url" placeholder="URL" required="required"
+                               th:field="*{url}">
+                        <small th:errors="*{url}" style="color:red;"></small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+
+
+</body>
+
+</html>

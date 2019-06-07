@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layouts/main_layout :: head(title = ' BIBLIOPHILES TUNISIENS')}">
+</head>
+<body>
+
+<nav th:replace="~{layouts/main_layout :: navigation}"></nav>
+<div th:replace="~{layouts/main_layout :: jumbotron}"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h4>S'échanger</h4>
+                <br/>
+                <form id="frmAddBook" method="POST" th:action="@{/book/exchange}" th:object="${book}">
+                    <div class="form-group">
+                        <label for="title">Titre</label>
+                        <input type="text"
+                                class="form-control"
+                                id="title"
+                                placeholder="Entrer le titre"
+                                required="required"
+                                th:field="*{title}">
+                        <small th:errors="*{title}" style="color:red;"></small>
+                    </div>
+					 <div class="form-group">
+                        <label for="author">Auteur</label>
+                        <input type="text"
+                                class="form-control"
+                                id="author"
+                                placeholder="Entrer l'auteur"
+                                required="required"
+                                th:field="*{author}">
+                        <small th:errors="*{author}" style="color:red;"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="category"> Catégorie</label>
+                        <select id="category" th:field="*{category}" class="form-control" >
+                            <option th:value="${book.category} == 'AMC'">Art musique et cinéma</option>
+                            <option th:value="${book.category} =='AE'">Auto-edition</option>
+                            <option th:value="${book.category} =='BD'">Bandes dessinées</option>
+                            <option th:value="${book.category} =='C'" >Cuisine</option>
+                            <option th:value="${book.category} =='D'" >Développement personnel</option>
+                            <option th:value="${book.category} =='DL'">Dictionnaires et langues</option>
+                            <option th:value="${book.category} =='DE'">Droit et économie</option>
+                            <option th:value="${book.category} =='ED'">Essais et documents</option>
+                            <option th:value="${book.category} =='GP'">Guides pratiques</option>
+                            <option th:value="${book.category} =='H'">Histoire</option>
+                            <option th:value="${book.category} =='HU'">Humour</option>
+                            <option th:value="${book.category} =='II'">Informatique et internet</option>
+                            <option th:value="${book.category} =='J'">Jeunesse</option>
+                            <option th:value="${book.category} =='L'">Littérature</option>
+                            <option th:value="${book.category} =='PST'">Policier, suspense, thrillers</option>
+                            <option th:value="${book.category} =='RS'">Religion et spiritualité</option>
+                            <option th:value="${book.category} =='SS'">Sciences sociales</option>
+                            <option th:value="${book.category} =='STM'">Sciences, techniques et médecine</option>
+                            <option th:value="${book.category} =='S'">Scolaire</option>
+                            <option th:value="${book.category} =='SFF'">SF, Fantasy</option>
+                            <option th:value="${book.category} =='SLV'">Sport loisirs et vie pratique</option>
+                            <option th:value="${book.category} =='T'">Théâtre</option>
+                            <option th:value="${book.category} =='TV'">Tourisme et voyages</option>
+                        </select>
+                        <small th:errors="*{category}" style="color:red;"></small>
+                    </div>
+					<div class="form-group">
+                        <label for="place">Adresse</label>
+                        <input type="place" class="form-control" id="place" placeholder="adresse" required="required" th:field="*{place}">
+                        <small th:errors="*{place}" style="color:red;"></small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+
+
+</body>
+
+</html>
