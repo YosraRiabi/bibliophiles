@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 
 @SpringBootApplication
-@EnableJpaAuditing
+//@EnableJpaAuditing
 public class BibliophilesApplication {
 
     private static final Logger log = LoggerFactory.getLogger(BibliophilesApplication.class);
