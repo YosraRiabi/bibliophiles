@@ -29,7 +29,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/link/submit").hasRole("USER")
                 .antMatchers("/book/exchange").hasRole("USER")
             .and()
-            .formLogin();
+            .formLogin()
+                .and()
+                .csrf().disable()
+                .headers().frameOptions().disable();
 
     }
 
