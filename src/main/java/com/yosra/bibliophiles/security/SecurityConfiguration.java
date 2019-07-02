@@ -30,9 +30,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/book/exchange").hasRole("USER")
             .and()
             .formLogin()
+                .loginPage("/login").permitAll()
+                .usernameParameter("email")
                 .and()
-                .csrf().disable()
-                .headers().frameOptions().disable();
+            .logout()
+                .and()
+            .rememberMe();
+//            .and()
+//                .csrf().disable()
+//                .headers().frameOptions().disable();
 
     }
 
