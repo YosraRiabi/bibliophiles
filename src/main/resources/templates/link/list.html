@@ -38,7 +38,7 @@
                     <time th:title="${link.getCreationDate()}"
                           th:datetime="${link.getCreationDate()}" class="live-timestamp"
                           th:text="${link.getPrettyTime()}">1 hour(s)</time> by
-                    <a href="/" class="author">therealdanvega</a>
+                    <a href="/" class="author" th:text="${link.createdBy}">yosra</a>
                 </p>
 
                 <p>
@@ -77,7 +77,7 @@
                         <time th:title="${book.getCreationDate()}"
                               th:datetime="${book.getCreationDate()}" class="live-timestamp"
                               th:text="${book.getPrettyTime()}">1 hour(s)</time> by
-                        <a href="/" class="author">therealdanvega</a>
+                        <a href="/" class="author" th:text="${book.createdBy}">yosra</a>
                     </p>
 
                     <p>

@@ -29,7 +29,7 @@
                 </p>
                 <p class="tagline ">publier
                     <time th:title="${link.getCreationDate()}" th:datetime="${link.getCreationDate()}" th:text="${link.getPrettyTime()}">10 hours ago</time> by
-                    <a href="https://www.reddit.com/user/therealdanvega" class="author">therealdanvega</a>
+                    <a href="https://www.reddit.com/user/therealdanvega" class="author" th:text="${link.createdBy}">therealdanvega</a>
                     <span class="userattrs"></span>
                 </p>
                 <p class="tagline ">Auteur: <a th:text="${link.author}" target="_blank"></a></p>
