@@ -52,33 +52,33 @@ public class DatabaseLoader implements CommandLineRunner {
 //                }
 
       //  add users & roles
-        addUsersAndRoles();
-        Link l = new Link("l Alchimiste", "Philosophie", "Paulo Coelho", "https://www.jeejava.com/file-download-example-using-spring-rest-controller/");
-        linkRepository.save(l);
+//        addUsersAndRoles();
+//        Link l = new Link("l Alchimiste", "Philosophie", "Paulo Coelho", "https://www.jeejava.com/file-download-example-using-spring-rest-controller/");
+//        linkRepository.save(l);
 
 
         long linkCount = linkRepository.count();
         System.out.println("Number of links in the database: " + linkCount);
     }
 
-    private void addUsersAndRoles() {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String secret = "{bcrypt}" + encoder.encode("password");
-        Role userRole = new Role("ROLE_USER");
-        roleRepository.save(userRole);
-        Role adminRole = new Role("ROLE_ADMIN");
-        roleRepository.save(adminRole);
-        User user = new User("user@gmail.com",secret,true);
-        user.addRole(userRole);
-        userRepository.save(user);
-        User admin = new User("admin@gmail.com",secret,true);
-        admin.addRole(adminRole);
-        userRepository.save(admin);
-        User master = new User("super@gmail.com",secret,true);
-        master.addRoles(new HashSet<>(Arrays.asList(userRole,adminRole)));
-        userRepository.save(master);
-        System.out.println("users");
-    }
+//    private void addUsersAndRoles() {
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        String secret = "{bcrypt}" + encoder.encode("password");
+//        Role userRole = new Role("ROLE_USER");
+//        roleRepository.save(userRole);
+//        Role adminRole = new Role("ROLE_ADMIN");
+//        roleRepository.save(adminRole);
+//        User user = new User("user@gmail.com",secret,true);
+//        user.addRole(userRole);
+//        userRepository.save(user);
+//        User admin = new User("admin@gmail.com",secret,true);
+//        admin.addRole(adminRole);
+//        userRepository.save(admin);
+//        User master = new User("super@gmail.com",secret,true);
+//        master.addRoles(new HashSet<>(Arrays.asList(userRole,adminRole)));
+//        userRepository.save(master);
+//        System.out.println("users");
+//    }
 
 }
 

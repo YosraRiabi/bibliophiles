@@ -1,7 +1,6 @@
 package com.yosra.bibliophiles.domain;
 import com.yosra.bibliophiles.service.BeanUtil;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import javax.persistence.Entity;
@@ -17,7 +16,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Book extends Auditable{
     @Id

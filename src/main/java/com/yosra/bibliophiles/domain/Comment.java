@@ -1,7 +1,6 @@
 package com.yosra.bibliophiles.domain;
 import com.yosra.bibliophiles.service.BeanUtil;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +15,8 @@ import java.util.Date;
 
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Comment extends Auditable {
     @Id
