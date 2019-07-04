@@ -5,6 +5,7 @@ import com.yosra.bibliophiles.Repository.CommentRepository;
 import com.yosra.bibliophiles.domain.Book;
 import com.yosra.bibliophiles.domain.Comment;
 import com.yosra.bibliophiles.domain.Link;
+import com.yosra.bibliophiles.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,23 +23,23 @@ public class BookController {
 
     private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
-    private BookRepository bookRepository;
+    private BookService bookService;
     private CommentRepository commentRepository;
 
-    public BookController(BookRepository bookRepository, CommentRepository commentRepository) {
-        this.bookRepository = bookRepository;
+    public BookController(BookService bookService, CommentRepository commentRepository) {
+        this.bookService = bookService;
         this.commentRepository = commentRepository;
     }
 
     @GetMapping("/book")
     public String list(Model model){
-        model.addAttribute("books",bookRepository.findAll());
+        model.addAttribute("books",bookService.findAll());
         return "link/list";
     }
 
     @GetMapping("/book/{id}")
     public String read(@PathVariable Long id, Model model) {
-        Optional<Book> book = bookRepository.findById(id);
+        Optional<Book> book = bookService.findById(id);
         if (book.isPresent()) {
             Book currentBook = book.get();
             Comment comment = new Comment();
@@ -67,7 +68,7 @@ public class BookController {
             return "book/exchange";
         } else {
             // save our link
-            bookRepository.save(book);
+            bookService.save(book);
             logger.info("New link was saved successfully");
             redirectAttributes
                     .addAttribute("id",book.getId())

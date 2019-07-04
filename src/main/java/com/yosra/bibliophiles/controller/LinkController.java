@@ -4,6 +4,8 @@ import com.yosra.bibliophiles.Repository.CommentRepository;
 import com.yosra.bibliophiles.Repository.LinkRepository;
 import com.yosra.bibliophiles.domain.Comment;
 import com.yosra.bibliophiles.domain.Link;
+import com.yosra.bibliophiles.service.BookService;
+import com.yosra.bibliophiles.service.LinkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,26 +23,26 @@ public class LinkController {
 
     private static final Logger logger = LoggerFactory.getLogger(LinkController.class);
 
-    private LinkRepository linkRepository;
-    private BookRepository bookRepository;
+    private LinkService linkService;
+    private BookService bookService;
     private CommentRepository commentRepository;
 
-    public LinkController(LinkRepository linkRepository, BookRepository bookRepository, CommentRepository commentRepository) {
-        this.linkRepository = linkRepository;
-        this.bookRepository = bookRepository;
+    public LinkController(LinkService linkService, BookService bookService, CommentRepository commentRepository) {
+        this.linkService = linkService;
+        this.bookService = bookService;
         this.commentRepository = commentRepository;
     }
 
     @GetMapping("/")
     public String list(Model model){
-        model.addAttribute("links", linkRepository.findAll());
-        model.addAttribute("books", bookRepository.findAll());
+        model.addAttribute("links", linkService.findAll());
+        model.addAttribute("books", bookService.findAll());
         return "link/list";
     }
 
     @GetMapping("/link/{id}")
     public String read(@PathVariable Long id,Model model) {
-        Optional<Link> link = linkRepository.findById(id);
+        Optional<Link> link = linkService.findById(id);
         if( link.isPresent() ) {
             Link currentLink = link.get();
             Comment comment = new Comment();
@@ -68,7 +70,7 @@ public class LinkController {
             return "link/submit";
         } else {
             // save our link
-            linkRepository.save(link);
+            linkService.save(link);
             logger.info("New link was saved successfully");
             redirectAttributes
                     .addAttribute("id",link.getId())
