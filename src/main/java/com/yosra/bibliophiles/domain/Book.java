@@ -33,6 +33,10 @@ public class Book extends Auditable{
     @OneToMany(mappedBy = "book")
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "book")
+    private List<Vote> votes = new ArrayList<>();
+    private int voteCount = 0;
+
     public Book(String title, String category, String author, String place, Boolean status, List<Comment> comments) {
         this.title = title;
         this.category = category;

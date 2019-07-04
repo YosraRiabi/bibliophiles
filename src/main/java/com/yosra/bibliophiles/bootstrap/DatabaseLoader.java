@@ -51,10 +51,10 @@ public class DatabaseLoader implements CommandLineRunner {
 //        System.out.println("Number of links in the database: " + linkCount );
 //                }
 
-        //add users & roles
-//        addUsersAndRoles();
-//        Link l = new Link("l Alchimiste", "Philosophie", "Paulo Coelho", "https://www.jeejava.com/file-download-example-using-spring-rest-controller/");
-//        linkRepository.save(l);
+      //  add users & roles
+        addUsersAndRoles();
+        Link l = new Link("l Alchimiste", "Philosophie", "Paulo Coelho", "https://www.jeejava.com/file-download-example-using-spring-rest-controller/");
+        linkRepository.save(l);
 
 
         long linkCount = linkRepository.count();
@@ -77,6 +77,7 @@ public class DatabaseLoader implements CommandLineRunner {
         User master = new User("super@gmail.com",secret,true);
         master.addRoles(new HashSet<>(Arrays.asList(userRole,adminRole)));
         userRepository.save(master);
+        System.out.println("users");
     }
 
 }

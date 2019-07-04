@@ -1,22 +1,41 @@
 package com.yosra.bibliophiles.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
-@Data
-@NoArgsConstructor
-public class Vote {
+
+@Getter
+@Setter
+public class Vote extends Auditable {
     @Id
     @GeneratedValue
     private Long id;
-    private int vote;
+    @NonNull
+    private short direction;
 
-    //user
+    @NonNull
+    @ManyToOne
+    private Link link;
 
-    //link
+    @NonNull
+    @ManyToOne
+    private Book book;
+
+    public Vote() {
+    }
+
+    public Vote(@NonNull short direction, @NonNull Link link) {
+        this.direction = direction;
+        this.link = link;
+    }
+
+    public Vote(@NonNull short direction, @NonNull Book book) {
+        this.direction = direction;
+        this.book = book;
+    }
 }
