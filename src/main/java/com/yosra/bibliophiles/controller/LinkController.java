@@ -1,6 +1,8 @@
 package com.yosra.bibliophiles.controller;
 import com.yosra.bibliophiles.Repository.BookRepository;
+import com.yosra.bibliophiles.Repository.CommentRepository;
 import com.yosra.bibliophiles.Repository.LinkRepository;
+import com.yosra.bibliophiles.domain.Comment;
 import com.yosra.bibliophiles.domain.Link;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +23,12 @@ public class LinkController {
 
     private LinkRepository linkRepository;
     private BookRepository bookRepository;
+    private CommentRepository commentRepository;
 
-    public LinkController(LinkRepository linkRepository, BookRepository bookRepository) {
+    public LinkController(LinkRepository linkRepository, BookRepository bookRepository, CommentRepository commentRepository) {
         this.linkRepository = linkRepository;
         this.bookRepository = bookRepository;
+        this.commentRepository = commentRepository;
     }
 
     @GetMapping("/")
@@ -38,7 +42,11 @@ public class LinkController {
     public String read(@PathVariable Long id,Model model) {
         Optional<Link> link = linkRepository.findById(id);
         if( link.isPresent() ) {
-            model.addAttribute("link",link.get());
+            Link currentLink = link.get();
+            Comment comment = new Comment();
+            comment.setLink(currentLink);
+            model.addAttribute("comment",comment);
+            model.addAttribute("link",currentLink);
             model.addAttribute("success", model.containsAttribute("success"));
             return "link/view";
         } else {
@@ -68,5 +76,17 @@ public class LinkController {
             return "redirect:/link/{id}";
         }
 
+    }
+
+    @PostMapping("/link/comments")
+    public String addComment(@Valid Comment comment, BindingResult bindingResult, Model
+            model, RedirectAttributes redirectAttributes) {
+        if( bindingResult.hasErrors() ) {
+            logger.info("Something went wrong.");
+        } else {
+            logger.info("New Comment Saved!");
+            commentRepository.save(comment);
+        }
+        return "redirect:/link/" + comment.getLink().getId();
     }
 }

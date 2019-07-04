@@ -1,7 +1,9 @@
 package com.yosra.bibliophiles.controller;
 
 import com.yosra.bibliophiles.Repository.BookRepository;
+import com.yosra.bibliophiles.Repository.CommentRepository;
 import com.yosra.bibliophiles.domain.Book;
+import com.yosra.bibliophiles.domain.Comment;
 import com.yosra.bibliophiles.domain.Link;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +23,11 @@ public class BookController {
     private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 
     private BookRepository bookRepository;
+    private CommentRepository commentRepository;
 
-    public BookController(BookRepository bookRepository) {
+    public BookController(BookRepository bookRepository, CommentRepository commentRepository) {
         this.bookRepository = bookRepository;
+        this.commentRepository = commentRepository;
     }
 
     @GetMapping("/book")
@@ -36,13 +40,18 @@ public class BookController {
     public String read(@PathVariable Long id, Model model) {
         Optional<Book> book = bookRepository.findById(id);
         if (book.isPresent()) {
-            model.addAttribute("book", book.get());
+            Book currentBook = book.get();
+            Comment comment = new Comment();
+            comment.setBook(currentBook);
+            model.addAttribute("comment", comment);
+            model.addAttribute("book", currentBook);
             model.addAttribute("success", model.containsAttribute("success"));
             return "book/book";
         } else {
             return "redirect:/";
         }
     }
+
 
     @GetMapping("/book/exchange")
     public String newLinkForm(Model model) {
@@ -66,5 +75,17 @@ public class BookController {
             return "redirect:/book/{id}";
         }
 
+    }
+
+    @PostMapping("/book/comments")
+    public String addComment(@Valid Comment comment, BindingResult bindingResult, Model
+            model, RedirectAttributes redirectAttributes) {
+        if( bindingResult.hasErrors() ) {
+            logger.info("Something went wrong.");
+        } else {
+            logger.info("New Comment Saved!");
+            commentRepository.save(comment);
+        }
+        return "redirect:/book/" + comment.getBook().getId();
     }
 }
