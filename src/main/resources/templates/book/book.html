@@ -27,7 +27,10 @@
                 </p>
                 <p class="tagline ">submitted
                     <time th:title="${book.getCreationDate()}" th:datetime="${book.getCreationDate()}" th:text="${book.getPrettyTime()}">2 hours ago</time> by
-                    <a href="https://www.reddit.com/user/therealdanvega" class="author" th:text="${book.createdBy}">therealdanvega</a>
+
+                      <a th:href="@{'/u/' + ${book.getUser().getAlias()}}" class="author"
+                             th:text="${book.getUser().getAlias()}">
+                        therealdanvega</a>
                     <span class="userattrs"></span>
                 </p>
                 <p><a th:text="${book.title}"  target="_blank"></a></p>

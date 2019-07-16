@@ -50,6 +50,9 @@ public class Link extends Auditable{
     private List<Vote> votes = new ArrayList<>();
     private int voteCount = 0;
 
+    @ManyToOne
+    private User user;
+
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
@@ -73,5 +76,8 @@ public class Link extends Auditable{
                 java.util.Date.from(dateToConvert.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-
+    public Link(@NonNull @NotEmpty(message = "Veuillez entrer un titre.") String title, @NonNull @NotEmpty(message = "Veuillez entrer un url.") @URL(message = "Veuillez entrer un url valide.") String url) {
+        this.title = title;
+        this.url = url;
+    }
 }

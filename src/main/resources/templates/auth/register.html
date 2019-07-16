@@ -1,111 +1,169 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layouts/main_layout :: head(title = 'Springit - Register for an
-account')}">
+<head th:replace="~{layouts/main_layout :: head(title = 'Bobliophile - Register for an account')}">
 </head>
 <body>
-<nav th:replace="~{layouts/main_layout :: nav}"></nav>
-<div th:replace="~{layouts/main_layout :: jumbotron}"></div>
-<!-- User Registration form -->
-<form class="form-horizontal" role="form" method="POST" action="">
-    <div class="row">
+    <nav th:replace="~{layouts/main_layout :: nav}"></nav>
+    <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
+
+    <div class="row" th:if="${success}">
         <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <h2>Enregistrer un nouvel utilisateur</h2>
-            <hr>
+        <div class="col-md-6 alert alert-success" role="alert" >
+            Pour terminer l'activation de ton profil, contrôle ton e-mail et clique sur le lien d'activation.
         </div>
+        <div class="col-md-3"></div>
     </div>
-    <div class="row">
-        <div class="col-md-3 field-label-responsive">
-            <label for="name">Nom</label>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon" style="width: 2.6rem"><i
-                            class="fa fa-user"></i></div>
-                    <input type="text" name="name" class="form-control" id="name"
-                           placeholder="John Doe" required autofocus>
-                </div>
+
+    <!-- User Registration form -->
+    <form class="form-horizontal" role="form" method="POST" th:action="@{/register}"
+          th:object="${user}" th:if="!${success}">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h2>Enregistrer un nouvel utilisateur</h2>
+                <hr>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="form-control-feedback">
-<span class="text-danger align-middle">
-<!-- Put name validation error messages here -->
-</span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 field-label-responsive">
-            <label for="email">Adresse E-Mail</label>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon" style="width: 2.6rem"><i
-                            class="fa fa-at"></i></div>
-                    <input type="text" name="email" class="form-control"
-                           id="email"
-                           placeholder="you@example.com" required autofocus>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-control-feedback">
-<span class="text-danger align-middle">
-<!-- Put e-mail validation error messages here -->
-</span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 field-label-responsive">
-            <label for="password">Mot de passe</label>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group has-danger">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon" style="width: 2.6rem"><i
-                            class="fas fa-key"></i></div>
-                    <input type="password" name="password" class="form-control"
-                           id="password"
-                           placeholder="Password" required>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="form-control-feedback">
-<span class="text-danger align-middle">
-Example Error Message
+
+        <div class="row" th:if="${validationErrors}">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+    <span class="text-danger align-middle">
+    <ul th:each="error : ${validationErrors}">
+    <li th:text="${error.getDefaultMessage()}"></li>
+    </ul>
     </span>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 field-label-responsive">
-            <label for="password">Confirmer Mot de passe</label>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon" style="width: 2.6rem">
-                        <i class="fas fa-key"></i>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="first-name">Prénom</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa
+    fa-user"></i></div>
+                        <input type="text"
+                               name="first-name"
+                               class="form-control"
+                               id="first-name"
+                               placeholder="Prénom"
+                               th:field="*{firstName}"
+                               required autofocus>
                     </div>
-                    <input type="password" name="password-confirmation"
-                           class="form-control"
-                           id="password-confirm" placeholder="Password" required>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <button type="submit" class="btn btn-success"><i class="fa fa-userplus"></i> Register</button>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="last-name">Nom</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa
+    fa-user"></i></div>
+                        <input type="text"
+                               name="last-name"
+                               class="form-control"
+                               id="last-name"
+                               placeholder="Nom"
+                               th:field="*{lastName}"
+                               required autofocus>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</form>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="alias">Alias</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa
+    fa-user"></i></div>
+                        <input type="text"
+                               name="alias"
+                               class="form-control"
+                               id="alias"
+                               placeholder="ca sera votre Alias affiché sur les commentaires et les livres publiés"
+                               th:field="*{alias}"
+                               required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="email">E-Mail </label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa
+    fa-at"></i></div>
+                        <input type="text"
+                               name="email"
+                               class="form-control"
+                               id="email"
+                               placeholder="toi@exemple.com"
+                               th:field="*{email}"
+                               required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="password">Mot de passe</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group has-danger">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i
+                                class="fas fa-key"></i></div>
+                        <input type="password"
+                               name="password"
+                               class="form-control"
+                               id="password"
+                               placeholder="Mot de passe"
+                               th:field="*{password}"
+                               required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="password">Confirmer Mot de passe</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <input type="password"
+                               name="confirmPassword"
+                               class="form-control"
+                               id="confirmPassword"
+                               placeholder="Confirmer Mot de passe"
+                               th:field="*{confirmPassword}"
+                               required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-success"><i class="fa fa-user-plus">
+                </i> Enregistrer</button>
+            </div>
+        </div>
+    </form>
 </body>
 </html>

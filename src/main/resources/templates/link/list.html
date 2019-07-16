@@ -33,9 +33,12 @@
                     <span class="domain">(<a th:href="${link.url}"
                                              th:text="${link.getDomainName()}">therealdanvega.com</a>)</span>
                 </p>
-                <p class="tagline ">publier
-                    <!--<time title="Sat Mar 10 06:26:36 2018 UTC" datetime="2018-03-
-                    10T06:26:36+00:00" class="live-timestamp">2 hours ago</time> by-->
+                <p class="tagline ">Publier
+                    <time th:title="${link.getCreationDate()}"
+                          th:datetime="${link.getCreationDate()}" class="live-timestamp"
+                          th:text="${link.getPrettyTime()}">1 hour(s)</time> by
+                    <!--<a th:href="@{'/u/' + ${link.getUser().getAlias()}}" class="author"-->
+                       <!--th:text="${link.getUser().getAlias()}">therealdanvega</a>-->
                     <time th:title="${link.getCreationDate()}"
                           th:datetime="${link.getCreationDate()}" class="live-timestamp"
                           th:text="${link.getPrettyTime()}">1 hour(s)</time> by
@@ -72,13 +75,14 @@
                         </a>
 
                     </p>
-                    <p class="tagline ">publier
-                        <!--<time title="Sat Mar 10 06:26:36 2018 UTC" datetime="2018-03-
-                        10T06:26:36+00:00" class="live-timestamp">2 hours ago</time> by-->
+                    <p class="tagline ">Publier
                         <time th:title="${book.getCreationDate()}"
                               th:datetime="${book.getCreationDate()}" class="live-timestamp"
                               th:text="${book.getPrettyTime()}">1 hour(s)</time> by
                         <a href="/" class="author" th:text="${book.createdBy}">yosra</a>
+                        <!--<a th:href="@{'/u/' + ${book.getUser().getAlias()}}" class="author"-->
+                           <!--th:text="${book.getUser().getAlias()}">therealdanvega</a>-->
+
                     </p>
 
                     <p>

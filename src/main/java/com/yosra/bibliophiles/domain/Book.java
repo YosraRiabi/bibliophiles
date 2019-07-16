@@ -3,10 +3,7 @@ import com.yosra.bibliophiles.service.BeanUtil;
 import lombok.*;
 import org.ocpsoft.prettytime.PrettyTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
@@ -36,6 +33,9 @@ public class Book extends Auditable{
     @OneToMany(mappedBy = "book")
     private List<Vote> votes = new ArrayList<>();
     private int voteCount = 0;
+
+    @ManyToOne
+    private User user;
 
     public Book(String title, String category, String author, String place, Boolean status, List<Comment> comments) {
         this.title = title;
