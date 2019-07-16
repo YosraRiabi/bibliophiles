@@ -37,6 +37,13 @@ public class Book extends Auditable{
     private List<Vote> votes = new ArrayList<>();
     private int voteCount = 0;
 
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
     public Book(String title, String category, String author, String place, Boolean status, List<Comment> comments) {
         this.title = title;
         this.category = category;
@@ -101,7 +108,5 @@ public class Book extends Auditable{
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
+
 }
